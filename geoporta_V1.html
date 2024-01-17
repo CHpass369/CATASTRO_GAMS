@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geoportal_1</title>
+    
+    
+    <style>
+        .miEstilo {
+            background-color: rgb(18, 18, 122);
+            color: rgb(244, 244, 244);
+            text-align: center;
+            height: 60px;
+        }
+    
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body{
+                width: 100%;
+                min-width: 100vh;
+            }
+            #mapa_1 {
+                height: 98vh;
+            }
+    </style>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    
+</head>
+<body>
+    <h1 class="miEstilo">GOBIERNO AUTÓNOMO MUNICIPAL DE SACABA</h1>
+    <div id="mapa_1">
+        
+        <script>
+            var mapa_1 = L.map('mapa_1').setView([-17.40, -66.040], 13);
+            
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a>Lic. Pablo A. Orellana C.</a>'
+            }).addTo(mapa_1);
+
+           var marcador_1 = L.marker([51.5, -0.09]).addTo(mapa_1);
+          
+            var circulo_1 = L.circle([51.508, -0.11], {
+            color: 'blue',
+            fillColor: '#f0000',
+            fillOpacity: 0.5,
+            radius: 250
+            }).addTo(mapa_1);
+
+            var poligono_1 = L.polygon([
+            [-17.4038, -66.039428],
+            [-17.403921, -66.038996],
+            [-17.404141, -66.039071],
+            [-17.40401, -66.039508],
+            ]).addTo(mapa_1);
+
+            marcador_1.bindPopup("<b>HOLA CATASTRO</b><br>SOY UN POPUP.");
+            circulo_1.bindPopup("GOBIERNO AUTONOMO MUNICIPAL DE SACABA.");
+            poligono_1.bindPopup("GOBIERNO AUTONOMO MUNICIPAL DE SACABA.");
+
+            function onMapClick(e) {
+            alert("You clicked the map at " + e.latlng);
+            }
+            mapa_1.on('click', onMapClick);
+
+            var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("Hiciste click en las coordenadas " + e.latlng.toString())
+        .openOn(mapa_1);
+}
+
+mapa_1.on('click', onMapClick);
+
+        var north = L.control({position: "topright"});
+        north.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "info legend");
+        div.innerHTML = '<img src="your-north-arrow.png">';
+        return div;
+}
+        north.addTo(mapa_1);
+        </script>
+    </div>
+    
+</body>
+</html>
